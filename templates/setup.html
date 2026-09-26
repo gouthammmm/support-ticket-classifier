@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Create SupportDesk owner{% endblock %}
+{% block content %}
+  <div class="auth-layout">
+    <div class="auth-card card">
+      <div class="eyebrow">FIRST-TIME SETUP</div>
+      <h1>Create the owner account</h1>
+      {% if setup_disabled %}
+        <p class="subtitle">Owner setup is locked until the deployment administrator sets <code>ERP_SETUP_TOKEN</code> in the server environment.</p>
+      {% else %}
+        <p class="subtitle">This one-time account manages the support team and can invite staff.</p>
+        <form method="POST" action="{{ url_for('initial_setup') }}" class="auth-form">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          {% if require_setup_token %}<label>Setup token<input type="password" name="setup_token" required autocomplete="off"></label>{% endif %}
+          <label>Owner email<input type="email" name="email" required maxlength="254" autocomplete="email"></label>
+          <label>Password<input type="password" name="password" required minlength="12" autocomplete="new-password"><span class="field-hint">At least 12 characters.</span></label>
+          <label>Confirm password<input type="password" name="confirm_password" required minlength="12" autocomplete="new-password"></label>
+          <button type="submit">Create owner account</button>
+        </form>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}

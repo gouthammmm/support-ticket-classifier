@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+{% block title %}Ticket Dashboard{% endblock %}
+{% block content %}
+  <div class="dashboard-heading">
+    <div><div class="eyebrow">SUPPORT OPERATIONS</div><h1>Ticket dashboard</h1><p class="subtitle">Review, assign, and track incoming support requests.</p></div>
+    <a class="button-link" href="{{ url_for('index') }}">＋ New ticket</a>
+  </div>
+
+  <section class="overview-grid" aria-label="Ticket overview">
+    <div class="overview-card"><span class="overview-label">All tickets</span><strong>{{ stats.total }}</strong><span class="overview-note">Total received</span></div>
+    <div class="overview-card"><span class="overview-label">Open work</span><strong>{{ stats.by_status.get('Open', 0) + stats.by_status.get('In Progress', 0) }}</strong><span class="overview-note">Open or in progress</span></div>
+    <div class="overview-card {% if stats.needs_review %}needs-review-card{% endif %}"><span class="overview-label">Needs review</span><strong>{{ stats.needs_review }}</strong><span class="overview-note">Low model score, not yet reviewed</span></div>
+  </section>
+
+  <section class="stats-grid">
+    <div class="card stats-card">
+      <div class="card-heading"><div><div class="eyebrow">TICKET MIX</div><h2>By category</h2></div></div>
+      <ul class="stat-list">
+        {% for cat in categories %}
+          <li><span class="badge badge-{{ cat|lower|replace(' ', '-') }}">{{ cat }}</span><strong>{{ stats.by_category.get(cat, 0) }}</strong></li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="card stats-card">
+      <div class="card-heading"><div><div class="eyebrow">URGENCY</div><h2>By priority</h2></div></div>
+      <ul class="stat-list">
+        {% for priority in ['High', 'Medium', 'Low'] %}
+          <li><span class="badge badge-priority-{{ priority|lower }}">{{ priority }}</span><strong>{{ stats.by_priority.get(priority, 0) }}</strong></li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div class="card stats-card">
+      <div class="card-heading"><div><div class="eyebrow">WORKLOAD</div><h2>By status</h2></div></div>
+      <ul class="stat-list">
+        {% for status in statuses %}
+          <li><span class="status-pill status-{{ status|lower|replace(' ', '-') }}">{{ status }}</span><strong>{{ stats.by_status.get(status, 0) }}</strong></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </section>
+
+  <section class="ticket-section">
+    <div class="section-heading"><div><div class="eyebrow">QUEUE</div><h2>Recent tickets <span class="count-chip">{{ total_filtered }}</span></h2></div>
+      <a class="text-link export-link" href="{{ url_for('export_tickets', q=filters.q, status=filters.status, category=filters.category) }}">↓ Export CSV</a>
+    </div>
+    <form class="filter-bar" method="GET" action="{{ url_for('dashboard') }}">
+      <label class="search-field"><span class="sr-only">Search tickets</span><span aria-hidden="true">⌕</span><input type="search" name="q" value="{{ filters.q }}" maxlength="100" placeholder="Search subject, description, or requester"></label>
+      <label><span class="sr-only">Filter by category</span><select name="category"><option value="">All categories</option>{% for cat in categories %}<option value="{{ cat }}" {% if filters.category == cat %}selected{% endif %}>{{ cat }}</option>{% endfor %}</select></label>
+      <label><span class="sr-only">Filter by status</span><select name="status"><option value="">All statuses</option>{% for status in statuses %}<option value="{{ status }}" {% if filters.status == status %}selected{% endif %}>{{ status }}</option>{% endfor %}</select></label>
+      <button class="filter-button" type="submit">Filter</button>
+      {% if filters.q or filters.category or filters.status %}<a class="text-link reset-link" href="{{ url_for('dashboard') }}">Clear</a>{% endif %}
+    </form>
+
+    <div class="table-wrap">
+      <table class="ticket-table">
+        <thead><tr><th>Ticket</th><th>Category review</th><th>Priority</th><th>Status</th><th>Assigned to</th><th>Updated</th><th>Save</th></tr></thead>
+        <tbody>
+        {% for t in tickets %}
+          {% set display_category = t.reviewed_category or t.category %}
+          {% set needs_review = (not t.reviewed_at and t.confidence < 0.5) %}
+          {% set form_id = 'update-ticket-' ~ t.id %}
+          <tr>
+            <td class="ticket-summary">
+              <strong class="ticket-subject">#{{ t.id }} · {{ t.subject or 'No subject' }}</strong>
+              <span class="ticket-requester">{{ t.name or 'Anonymous requester' }}{% if t.email %} · {{ t.email }}{% endif %}</span>
+              <span class="ticket-description" title="{{ t.description }}">{{ t.description }}</span>
+              <details class="ticket-details"><summary>Full request and reply draft</summary><div><strong>Request</strong><p>{{ t.description }}</p><strong>Draft reply</strong><pre>{{ t.response }}</pre></div></details>
+              <a class="ticket-workspace-link" href="{{ url_for('ticket_workspace', ticket_id=t.id) }}">Open ticket workspace →</a>
+            </td>
+            <td>
+              <span class="badge badge-{{ display_category|lower|replace(' ', '-') }}">{{ display_category }}</span>
+              {% if t.reviewed_at %}<span class="review-state reviewed-state">Reviewed</span>
+              {% elif needs_review %}<span class="review-state pending-state">Review suggested</span>
+              {% else %}<span class="review-state">Model suggestion</span>{% endif %}
+              <label class="sr-only" for="category-{{ t.id }}">Correct category for ticket {{ t.id }}</label>
+              <select class="compact-select" id="category-{{ t.id }}" name="reviewed_category" form="{{ form_id }}">
+                <option value="" {% if not t.reviewed_category %}selected{% endif %}>Keep model result</option>
+                {% for cat in categories %}<option value="{{ cat }}" {% if t.reviewed_category == cat %}selected{% endif %}>{{ cat }}</option>{% endfor %}
+              </select>
+              <span class="score-caption">Model score: {{ (t.confidence * 100)|round(1) }}% · uncalibrated</span>
+            </td>
+            <td><span class="badge badge-priority-{{ t.priority|lower }}">{{ t.priority }}</span></td>
+            <td>
+              <label class="sr-only" for="status-{{ t.id }}">Status for ticket {{ t.id }}</label>
+              <select class="compact-select" id="status-{{ t.id }}" name="status" form="{{ form_id }}">
+                {% for status in statuses %}<option value="{{ status }}" {% if t.status == status %}selected{% endif %}>{{ status }}</option>{% endfor %}
+              </select>
+            </td>
+            <td><label class="sr-only" for="assignee-{{ t.id }}">Assignee for ticket {{ t.id }}</label><select class="compact-select" id="assignee-{{ t.id }}" name="assigned_to" form="{{ form_id }}"><option value="">Unassigned</option>{% for member in staff_members %}<option value="{{ member.email }}" {% if t.assigned_to == member.email %}selected{% endif %}>{{ member.email }}</option>{% endfor %}</select></td>
+            <td class="date-cell">{{ t.updated_at or t.created_at }}<span>UTC</span></td>
+            <td>
+              <form id="{{ form_id }}" method="POST" action="{{ url_for('update_ticket', ticket_id=t.id) }}">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <input type="hidden" name="q" value="{{ filters.q }}"><input type="hidden" name="filter_category" value="{{ filters.category }}"><input type="hidden" name="filter_status" value="{{ filters.status }}"><input type="hidden" name="page" value="{{ page }}">
+                <button class="save-button" type="submit">Save</button>
+              </form>
+            </td>
+          </tr>
+        {% else %}
+          <tr><td colspan="7" class="empty-state"><span class="empty-icon">⌕</span><strong>{% if filters.q or filters.category or filters.status %}No matching tickets{% else %}No tickets yet{% endif %}</strong><span>{% if filters.q or filters.category or filters.status %}Change your filters or clear the search.{% else %}New support requests will appear here.{% endif %}</span></td></tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    {% if page_count > 1 %}
+      <nav class="pagination" aria-label="Ticket pages">
+        <span>Page {{ page }} of {{ page_count }}</span>
+        <div>{% if page > 1 %}<a class="page-link" href="{{ url_for('dashboard', q=filters.q, category=filters.category, status=filters.status, page=page - 1) }}">← Previous</a>{% endif %}
+        {% if page < page_count %}<a class="page-link" href="{{ url_for('dashboard', q=filters.q, category=filters.category, status=filters.status, page=page + 1) }}">Next →</a>{% endif %}</div>
+      </nav>
+    {% endif %}
+  </section>
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Staff sign in{% endblock %}
+{% block content %}
+  <div class="auth-layout">
+    <div class="auth-card card">
+      <div class="eyebrow">STAFF ACCESS</div>
+      <h1>Welcome back</h1>
+      <p class="subtitle">Sign in to review and manage support tickets.</p>
+      <form method="POST" action="{{ url_for('login', next=next_path) }}" class="auth-form">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <input type="hidden" name="next" value="{{ next_path }}">
+        <label>Email<input type="email" name="email" required maxlength="254" autocomplete="username"></label>
+        <label>Password<input type="password" name="password" required autocomplete="current-password"></label>
+        <button type="submit">Sign in</button>
+      </form>
+    </div>
+  </div>
+{% endblock %}

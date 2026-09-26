@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block title %}Ticket #{{ ticket.id }} · SupportDesk{% endblock %}
+{% block content %}
+  <div class="dashboard-heading">
+    <div>
+      <div class="eyebrow">TICKET WORKSPACE · #{{ ticket.id }}</div>
+      <h1>{{ ticket.subject or 'No subject' }}</h1>
+      <p class="subtitle">{{ ticket.name or 'Anonymous requester' }}{% if ticket.email %} · {{ ticket.email }}{% endif %}</p>
+    </div>
+    <a class="button-link button-secondary" href="{{ url_for('dashboard') }}">← Back to queue</a>
+  </div>
+
+  <div class="workspace-grid">
+    <div class="workspace-main">
+      <section class="card workspace-card">
+        <div class="card-heading">
+          <div><div class="eyebrow">REQUEST</div><h2>Customer report</h2></div>
+          <div class="ticket-badges">
+            <span class="badge badge-{{ (ticket.reviewed_category or ticket.category)|lower|replace(' ', '-') }}">{{ ticket.reviewed_category or ticket.category }}</span>
+            <span class="badge badge-priority-{{ ticket.priority|lower }}">{{ ticket.priority }} priority</span>
+          </div>
+        </div>
+        <div class="request-body">{{ ticket.description }}</div>
+        <div class="request-meta">
+          <span>Received {{ ticket.created_at }} UTC</span>
+          <span>Model suggestion score {{ (ticket.confidence * 100)|round(1) }}% · uncalibrated</span>
+        </div>
+        <details class="ticket-details workspace-draft">
+          <summary>View private draft reply</summary>
+          <div><pre>{{ ticket.response }}</pre></div>
+        </details>
+      </section>
+
+      <section class="card workspace-card">
+        <div class="eyebrow">INVESTIGATION</div>
+        <h2>Work notes and resolution</h2>
+        <p class="field-hint workspace-hint">These notes are visible to signed-in staff only. Record what you checked and the confirmed fix.</p>
+        <form method="POST" action="{{ url_for('save_ticket_work', ticket_id=ticket.id) }}" class="work-form">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <label>Status
+            <select name="status" required>{% for status in statuses %}<option value="{{ status }}" {% if ticket.status == status %}selected{% endif %}>{{ status }}</option>{% endfor %}</select>
+          </label>
+          <label>Internal investigation notes
+            <textarea name="internal_notes" rows="6" maxlength="10000" placeholder="What did you check? Add timestamps, findings, or follow-up steps.">{{ ticket.internal_notes or '' }}</textarea>
+            <span class="field-hint">Private to the support team.</span>
+          </label>
+          <label>Confirmed resolution
+            <textarea name="resolution" rows="5" maxlength="10000" placeholder="What fixed the issue? If unresolved, leave this blank and keep the ticket open.">{{ ticket.resolution or '' }}</textarea>
+            <span class="field-hint">Required when marking the ticket Resolved. This may help the team create a reusable guide.</span>
+          </label>
+          <div class="work-form-footer"><span class="field-hint">Last updated {{ ticket.updated_at or ticket.created_at }} UTC</span><button type="submit">Save work</button></div>
+        </form>
+      </section>
+    </div>
+
+    <aside class="card suggested-guides">
+      <div class="eyebrow">TEAM KNOWLEDGE</div>
+      <h2>Suggested troubleshooting guides</h2>
+      <p class="field-hint">Suggestions use the ticket category, title, and guide keywords. Check each guide before following it.</p>
+      {% if articles %}
+        <ul class="suggestion-list">
+          {% for article in articles %}
+            <li>
+              <a href="{{ url_for('view_knowledge_article', article_id=article.id) }}">{{ article.title }}</a>
+              <span class="suggestion-meta">{{ article.category or 'Any category' }} · {{ article.match_reason }}</span>
+            </li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <div class="guide-empty"><strong>No matching guides yet</strong><span>The team owner can add approved troubleshooting steps in Guides.</span></div>
+      {% endif %}
+      <a class="text-link guide-library-link" href="{{ url_for('knowledge_library') }}">Browse all guides →</a>
+    </aside>
+  </div>
+{% endblock %}

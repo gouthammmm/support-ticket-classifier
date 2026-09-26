@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Submit a Ticket{% endblock %}
+{% block content %}
+  <section class="hero">
+    <div class="eyebrow"><span class="eyebrow-dot"></span> SUPPORT OPERATIONS</div>
+    <h1>How can we help?</h1>
+    <p class="subtitle">Tell us what happened. We’ll route your ticket and prepare a first-response draft.</p>
+  </section>
+
+  <form method="POST" action="{{ url_for('classify_ticket') }}" class="card">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <div class="form-grid">
+      <label>Your name <span class="optional">Optional</span>
+        <input type="text" name="name" maxlength="100" placeholder="Jane Doe" autocomplete="name">
+      </label>
+      <label>Email <span class="required">Required</span>
+        <input type="email" name="email" maxlength="254" required placeholder="jane@company.com" autocomplete="email">
+      </label>
+    </div>
+    <div class="honeypot" aria-hidden="true"><label>Leave this field empty<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+    <label>Subject <span class="optional">Optional</span>
+      <input type="text" name="subject" maxlength="200" placeholder="e.g. Payroll module won’t load">
+    </label>
+    <label>Description <span class="required">Required</span>
+      <textarea name="description" rows="7" maxlength="5000" required placeholder="Describe what happened, what you expected, and any error message..."></textarea>
+      <span class="field-hint">Please don’t include passwords or other sensitive credentials.</span>
+    </label>
+    <div class="form-footer">
+      <span class="field-hint">Typical response time: one business day</span>
+      <button type="submit">Create support ticket <span aria-hidden="true">→</span></button>
+    </div>
+  </form>
+{% endblock %}

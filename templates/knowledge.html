@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block title %}Troubleshooting guides · SupportDesk{% endblock %}
+{% block content %}
+  <div class="dashboard-heading">
+    <div><div class="eyebrow">TEAM KNOWLEDGE</div><h1>Troubleshooting guides</h1><p class="subtitle">Store fixes your team has verified. Relevant guides appear beside matching tickets.</p></div>
+    {% if staff.role == 'owner' %}<a class="button-link" href="#new-guide">＋ Add a guide</a>{% endif %}
+  </div>
+
+  {% if staff.role == 'owner' %}
+    <section class="card guide-create-card" id="new-guide">
+      <div class="eyebrow">OWNER CURATION</div>
+      <h2>Add a team-approved guide</h2>
+      <p class="field-hint">Use steps your team has verified for its own systems. Guides are plain text and visible only after staff sign in.</p>
+      <form method="POST" action="{{ url_for('create_knowledge_article') }}" class="guide-form">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <label>Guide title<input type="text" name="title" required maxlength="160" placeholder="For example: Payroll run fails while saving"></label>
+        <div class="guide-form-grid">
+          <label>Category <span class="optional">Optional</span>
+            <select name="category"><option value="">Any category</option>{% for cat in categories %}<option value="{{ cat }}">{{ cat }}</option>{% endfor %}</select>
+          </label>
+          <label>Matching keywords <span class="optional">Comma-separated</span>
+            <input type="text" name="keywords" maxlength="500" placeholder="payroll, save, crash, run">
+          </label>
+        </div>
+        <label>Verified steps<textarea name="content" rows="7" required maxlength="10000" placeholder="Write the checks or fix steps your team has confirmed. Add when to stop and escalate."></textarea></label>
+        <div class="work-form-footer"><span class="field-hint">Never include passwords, secrets, or customer data.</span><button type="submit">Save guide</button></div>
+      </form>
+    </section>
+  {% endif %}
+
+  <section class="guide-library-section">
+    <div class="section-heading">
+      <div><div class="eyebrow">LIBRARY</div><h2>{% if include_archived %}Archived guides{% else %}Available guides{% endif %} <span class="count-chip">{{ articles|length }}</span></h2></div>
+      {% if staff.role == 'owner' %}
+        {% if include_archived %}<a class="text-link" href="{{ url_for('knowledge_library') }}">View active guides</a>
+        {% else %}<a class="text-link" href="{{ url_for('knowledge_library', archived=1) }}">View archived</a>{% endif %}
+      {% endif %}
+    </div>
+    <form class="filter-bar guide-filter" method="GET" action="{{ url_for('knowledge_library') }}">
+      {% if include_archived %}<input type="hidden" name="archived" value="1">{% endif %}
+      <label class="search-field"><span class="sr-only">Search guides</span><span aria-hidden="true">⌕</span><input type="search" name="q" value="{{ search }}" maxlength="100" placeholder="Search titles, keywords, or steps"></label>
+      <label><span class="sr-only">Filter guides by category</span><select name="category"><option value="">All categories</option>{% for cat in categories %}<option value="{{ cat }}" {% if category == cat %}selected{% endif %}>{{ cat }}</option>{% endfor %}</select></label>
+      <button class="filter-button" type="submit">Filter</button>
+    </form>
+
+    {% if articles %}
+      <div class="guide-grid">
+        {% for article in articles %}
+          <article class="card guide-card {% if not article.is_active %}archived-guide{% endif %}">
+            <div class="guide-card-top"><span class="badge {% if article.category %}badge-{{ article.category|lower|replace(' ', '-') }}{% endif %}">{{ article.category or 'Any category' }}</span>{% if not article.is_active %}<span class="role-pill">Archived</span>{% endif %}</div>
+            <h3><a href="{% if article.is_active %}{{ url_for('view_knowledge_article', article_id=article.id) }}{% else %}{{ url_for('edit_knowledge_article', article_id=article.id) }}{% endif %}">{{ article.title }}</a></h3>
+            <p>{{ article.content|truncate(180) }}</p>
+            {% if article.keywords %}<div class="guide-keywords">{{ article.keywords }}</div>{% endif %}
+            <div class="guide-card-footer"><span>Updated {{ article.updated_at }} UTC{% if article.author_email %} · {{ article.author_email }}{% endif %}</span>
+              {% if staff.role == 'owner' %}
+                <div class="guide-owner-actions">
+                  {% if article.is_active %}<a class="text-link" href="{{ url_for('edit_knowledge_article', article_id=article.id) }}">Edit</a>{% endif %}
+                  <form method="POST" action="{{ url_for('toggle_knowledge_article', article_id=article.id, archived=1 if include_archived else '') }}"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><button class="text-button" type="submit">{% if article.is_active %}Archive{% else %}Restore{% endif %}</button></form>
+                </div>
+              {% endif %}
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="guide-empty guide-library-empty"><strong>{% if search or category %}No guides match those filters{% elif include_archived %}No archived guides{% else %}No guides have been added yet{% endif %}</strong><span>{% if staff.role == 'owner' and not include_archived %}Add your team's first verified troubleshooting guide above.{% else %}Try clearing a filter, or ask the owner to add a guide.{% endif %}</span></div>
+    {% endif %}
+  </section>
+{% endblock %}

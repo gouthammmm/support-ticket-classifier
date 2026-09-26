@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Join the support team{% endblock %}
+{% block content %}
+  <div class="auth-layout">
+    <div class="auth-card card">
+      {% if invite %}
+        <div class="eyebrow">TEAM INVITATION</div>
+        <h1>Join the support team</h1>
+        <p class="subtitle">Create a staff account for <strong>{{ invite.email }}</strong>.</p>
+        <form method="POST" action="{{ url_for('join_team', token=token) }}" class="auth-form">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <label>Create password<input type="password" name="password" required minlength="12" autocomplete="new-password"><span class="field-hint">At least 12 characters.</span></label>
+          <label>Confirm password<input type="password" name="confirm_password" required minlength="12" autocomplete="new-password"></label>
+          <button type="submit">Accept invitation</button>
+        </form>
+      {% else %}
+        <div class="eyebrow">INVITATION UNAVAILABLE</div>
+        <h1>This invite expired or was already used.</h1>
+        <p class="subtitle">Ask the support team owner to send a new invitation.</p>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}

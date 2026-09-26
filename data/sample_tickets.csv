@@ -1,0 +1,201 @@
+text,category,priority
+Please revoke warehouse access for an employee who left the company.,Account Access,Low
+Unable to sync finance data between the warehouse and head office.,Technical Issue,High
+Print function for sales invoices is not working.,Technical Issue,High
+We'd like scheduled automatic backups for payroll data.,Feature Request,Low
+Please add an approval workflow before inventory entries are finalized.,Feature Request,Low
+Please reset the manager's permissions on payroll.,Account Access,Low
+We'd like to switch from monthly to annual billing.,Billing,Low
+Is there a training session available for new procurement users?,General Inquiry,Low
+"Just checking, is the system down for maintenance tonight?",General Inquiry,High
+Can you explain the extra line item on our latest invoice?,Billing,Low
+When is the next billing cycle for our procurement add-on?,Billing,Low
+Where can I find release notes for the latest HR update?,General Inquiry,Low
+Can you share the user guide for the payroll module?,General Inquiry,Low
+Requesting an itemized breakdown of charges for warehouse usage.,Billing,Low
+Do you offer onboarding sessions for the asset management module?,General Inquiry,Low
+How do I contact my account manager about reporting?,General Inquiry,Low
+The renewal price for inventory seems higher than last year's quote.,Billing,Low
+Please consider adding role-based dashboards for asset management.,Feature Request,Low
+I forgot my password and the reset link isn't arriving.,Account Access,Low
+We'd like to switch from monthly to annual billing.,Billing,Low
+Can we get a dark mode option for the dashboard?,Feature Request,Low
+The system froze while I was posting a asset management transaction.,Technical Issue,High
+Can the procurement module support multi-currency entries?,Feature Request,Low
+Please revoke finance access for an employee who left the company.,Account Access,Low
+When is the next billing cycle for our sales add-on?,Billing,Low
+Please send a corrected invoice; the VAT amount looks wrong.,Billing,Low
+"New employee needs access to the finance module, please provision an account.",Account Access,Low
+When is the next billing cycle for our sales add-on?,Billing,Low
+Can we get a dark mode option for the dashboard?,Feature Request,Low
+We'd like an export-to-Excel button on the sales report screen.,Feature Request,Low
+The application is extremely slow when loading reporting data.,Technical Issue,Medium
+The system froze while I was posting a inventory transaction.,Technical Issue,High
+We need a refund for the duplicate payroll module purchase.,Billing,Low
+Payment failed but the amount was still deducted from our account.,Billing,Low
+Can the procurement module support multi-currency entries?,Feature Request,Low
+Can you merge my two user accounts into one login?,Account Access,Low
+We'd like an export-to-Excel button on the warehouse report screen.,Feature Request,Low
+Requesting a custom field to track project codes in CRM.,Feature Request,Low
+Can you share the user guide for the reporting module?,General Inquiry,Low
+Requesting an itemized breakdown of charges for procurement usage.,Billing,Low
+Requesting an itemized breakdown of charges for HR usage.,Billing,Low
+Could you point me to documentation on reporting best practices?,General Inquiry,Low
+The mobile app keeps logging me out while using payroll.,Technical Issue,Low
+The CRM dashboard is not loading any widgets today.,Technical Issue,Low
+It would help if the warehouse module supported bulk CSV import.,Feature Request,Low
+Is there a sandbox environment to test asset management changes?,General Inquiry,Low
+Print function for warehouse invoices is not working.,Technical Issue,High
+The system froze while I was posting a asset management transaction.,Technical Issue,High
+Could you add email alerts when payroll stock falls below threshold?,Feature Request,Low
+"New employee needs access to the sales module, please provision an account.",Account Access,Low
+Please reset the manager's permissions on inventory.,Account Access,Low
+"Just checking, is the system down for maintenance tonight?",General Inquiry,High
+I'm getting a 500 error when generating the procurement report.,Technical Issue,Medium
+Can we get a dark mode option for the dashboard?,Feature Request,Low
+I can log in but I don't see the procurement menu anymore.,Account Access,Low
+Payment failed but the amount was still deducted from our account.,Billing,Low
+Could you add email alerts when asset management stock falls below threshold?,Feature Request,Low
+Two-factor authentication code is not being sent to my phone.,Account Access,Low
+"Just checking, is the system down for maintenance tonight?",General Inquiry,High
+Two-factor authentication code is not being sent to my phone.,Account Access,Low
+Is there a training session available for new asset management users?,General Inquiry,Low
+Two-factor authentication code is not being sent to my phone.,Account Access,Low
+Print function for HR invoices is not working.,Technical Issue,High
+Unable to sync inventory data between the warehouse and head office.,Technical Issue,High
+Getting 'connection timed out' when accessing payroll from the branch office.,Technical Issue,Low
+I can log in but I don't see the reporting menu anymore.,Account Access,Low
+I was charged twice for this month's HR subscription.,Billing,Low
+What integrations are available for finance?,General Inquiry,Low
+My account got locked after too many login attempts.,Account Access,High
+Requesting a custom field to track project codes in procurement.,Feature Request,Low
+Our invoice for reporting licenses shows the wrong quantity.,Billing,Low
+Can we get a dark mode option for the dashboard?,Feature Request,Low
+What are your support hours for inventory related issues?,General Inquiry,Low
+I was charged twice for this month's reporting subscription.,Billing,Low
+I can log in but I don't see the warehouse menu anymore.,Account Access,Low
+Please reset the manager's permissions on payroll.,Account Access,Low
+The HR dashboard is not loading any widgets today.,Technical Issue,Low
+Requesting a custom field to track project codes in HR.,Feature Request,Low
+I need admin rights on the finance module for my new role.,Account Access,Low
+Our SSO integration is not letting anyone log in this morning.,Account Access,Low
+The ERP system crashes every time I try to open the HR module.,Technical Issue,High
+Requesting an itemized breakdown of charges for CRM usage.,Billing,Low
+Can you explain the extra line item on our latest invoice?,Billing,Low
+Do you offer onboarding sessions for the CRM module?,General Inquiry,Low
+What integrations are available for payroll?,General Inquiry,Low
+"New employee needs access to the inventory module, please provision an account.",Account Access,Low
+What are your support hours for finance related issues?,General Inquiry,Low
+The mobile app keeps logging me out while using payroll.,Technical Issue,Low
+What integrations are available for finance?,General Inquiry,Low
+Please send a corrected invoice; the VAT amount looks wrong.,Billing,Low
+Login page throws a blank screen after entering credentials.,Technical Issue,High
+Could you add email alerts when procurement stock falls below threshold?,Feature Request,Low
+I need admin rights on the asset management module for my new role.,Account Access,Low
+Getting 'connection timed out' when accessing finance from the branch office.,Technical Issue,Low
+The application is extremely slow when loading inventory data.,Technical Issue,Medium
+Is there a sandbox environment to test reporting changes?,General Inquiry,Low
+We'd like scheduled automatic backups for sales data.,Feature Request,Low
+I'm getting a 500 error when generating the payroll report.,Technical Issue,Medium
+The inventory dashboard is not loading any widgets today.,Technical Issue,Low
+It would help if the payroll module supported bulk CSV import.,Feature Request,Low
+I'm getting a 500 error when generating the finance report.,Technical Issue,Medium
+Getting 'connection timed out' when accessing procurement from the branch office.,Technical Issue,Low
+Could you add email alerts when asset management stock falls below threshold?,Feature Request,Low
+It would be great to have a mobile widget for asset management approvals.,Feature Request,Low
+Our SSO integration is not letting anyone log in this morning.,Account Access,Low
+It would be great to have a mobile widget for HR approvals.,Feature Request,Low
+The application is extremely slow when loading warehouse data.,Technical Issue,Medium
+Please send a corrected invoice; the VAT amount looks wrong.,Billing,Low
+Please reset the manager's permissions on CRM.,Account Access,Low
+It would be great to have a mobile widget for reporting approvals.,Feature Request,Low
+Can you share the user guide for the payroll module?,General Inquiry,Low
+The ERP system crashes every time I try to open the payroll module.,Technical Issue,High
+Could you point me to documentation on finance best practices?,General Inquiry,Low
+Please consider adding role-based dashboards for inventory.,Feature Request,Low
+We'd like to switch from monthly to annual billing.,Billing,Low
+It would help if the reporting module supported bulk CSV import.,Feature Request,Low
+When is the next billing cycle for our CRM add-on?,Billing,Low
+Can you explain the extra line item on our latest invoice?,Billing,Low
+What are your support hours for finance related issues?,General Inquiry,Low
+Print function for procurement invoices is not working.,Technical Issue,High
+I was charged twice for this month's sales subscription.,Billing,Low
+Our SSO integration is not letting anyone log in this morning.,Account Access,Low
+Please consider adding role-based dashboards for sales.,Feature Request,Low
+We'd like scheduled automatic backups for CRM data.,Feature Request,Low
+The reporting dashboard is not loading any widgets today.,Technical Issue,Low
+Login page throws a blank screen after entering credentials.,Technical Issue,High
+Do you offer onboarding sessions for the sales module?,General Inquiry,Low
+It would be great to have a mobile widget for finance approvals.,Feature Request,Low
+I forgot my password and the reset link isn't arriving.,Account Access,Low
+The mobile app keeps logging me out while using sales.,Technical Issue,Low
+Is there a training session available for new payroll users?,General Inquiry,Low
+Can you explain the extra line item on our latest invoice?,Billing,Low
+Please revoke CRM access for an employee who left the company.,Account Access,Low
+Please consider adding role-based dashboards for reporting.,Feature Request,Low
+I was charged twice for this month's inventory subscription.,Billing,Low
+Requesting a custom field to track project codes in inventory.,Feature Request,Low
+The ERP system crashes every time I try to open the finance module.,Technical Issue,High
+Can you merge my two user accounts into one login?,Account Access,Low
+We need a refund for the duplicate reporting module purchase.,Billing,Low
+We'd like an export-to-Excel button on the payroll report screen.,Feature Request,Low
+Where can I find release notes for the latest asset management update?,General Inquiry,Low
+How do I contact my account manager about warehouse?,General Inquiry,Low
+Do you offer onboarding sessions for the CRM module?,General Inquiry,Low
+Our invoice for asset management licenses shows the wrong quantity.,Billing,Low
+I forgot my password and the reset link isn't arriving.,Account Access,Low
+Getting 'connection timed out' when accessing sales from the branch office.,Technical Issue,Low
+I'm getting a 500 error when generating the asset management report.,Technical Issue,Medium
+Our SSO integration is not letting anyone log in this morning.,Account Access,Low
+My account got locked after too many login attempts.,Account Access,High
+I forgot my password and the reset link isn't arriving.,Account Access,Low
+How do I contact my account manager about asset management?,General Inquiry,Low
+Where can I find release notes for the latest finance update?,General Inquiry,Low
+My account got locked after too many login attempts.,Account Access,High
+The application is extremely slow when loading payroll data.,Technical Issue,Medium
+Unable to sync payroll data between the warehouse and head office.,Technical Issue,High
+The renewal price for payroll seems higher than last year's quote.,Billing,Low
+Is there a training session available for new procurement users?,General Inquiry,Low
+Please add an approval workflow before HR entries are finalized.,Feature Request,Low
+The system froze while I was posting a reporting transaction.,Technical Issue,High
+Payment failed but the amount was still deducted from our account.,Billing,Low
+"Just checking, is the system down for maintenance tonight?",General Inquiry,High
+We'd like an export-to-Excel button on the HR report screen.,Feature Request,Low
+Can you share the user guide for the CRM module?,General Inquiry,Low
+Where can I find release notes for the latest warehouse update?,General Inquiry,Low
+Please send a corrected invoice; the VAT amount looks wrong.,Billing,Low
+We need a refund for the duplicate finance module purchase.,Billing,Low
+Can you merge my two user accounts into one login?,Account Access,Low
+Our invoice for HR licenses shows the wrong quantity.,Billing,Low
+Could you point me to documentation on finance best practices?,General Inquiry,Low
+The renewal price for HR seems higher than last year's quote.,Billing,Low
+Our invoice for payroll licenses shows the wrong quantity.,Billing,Low
+My account got locked after too many login attempts.,Account Access,High
+Login page throws a blank screen after entering credentials.,Technical Issue,High
+The renewal price for finance seems higher than last year's quote.,Billing,Low
+What are your support hours for HR related issues?,General Inquiry,Low
+Is there a sandbox environment to test sales changes?,General Inquiry,Low
+Please add an approval workflow before payroll entries are finalized.,Feature Request,Low
+The mobile app keeps logging me out while using warehouse.,Technical Issue,Low
+We'd like scheduled automatic backups for inventory data.,Feature Request,Low
+Is there a sandbox environment to test inventory changes?,General Inquiry,Low
+The ERP system crashes every time I try to open the inventory module.,Technical Issue,High
+We need a refund for the duplicate sales module purchase.,Billing,Low
+Can the sales module support multi-currency entries?,Feature Request,Low
+Please add an approval workflow before asset management entries are finalized.,Feature Request,Low
+Can the asset management module support multi-currency entries?,Feature Request,Low
+I need admin rights on the HR module for my new role.,Account Access,Low
+Two-factor authentication code is not being sent to my phone.,Account Access,Low
+I can log in but I don't see the procurement menu anymore.,Account Access,Low
+"New employee needs access to the warehouse module, please provision an account.",Account Access,Low
+Payment failed but the amount was still deducted from our account.,Billing,Low
+It would help if the warehouse module supported bulk CSV import.,Feature Request,Low
+Could you point me to documentation on inventory best practices?,General Inquiry,Low
+Login page throws a blank screen after entering credentials.,Technical Issue,High
+What integrations are available for payroll?,General Inquiry,Low
+We'd like to switch from monthly to annual billing.,Billing,Low
+Can you merge my two user accounts into one login?,Account Access,Low
+Unable to sync finance data between the warehouse and head office.,Technical Issue,High
+Please revoke sales access for an employee who left the company.,Account Access,Low
+How do I contact my account manager about finance?,General Inquiry,Low
+I need admin rights on the asset management module for my new role.,Account Access,Low

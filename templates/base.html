@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}SupportDesk{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css', v=3) }}">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="{{ url_for('index') }}"><span class="brand-icon">T</span><span>SupportDesk</span></a>
+    <nav aria-label="Main navigation">
+      <a class="nav-link {% if request.endpoint == 'index' %}active{% endif %}" href="{{ url_for('index') }}">New ticket</a>
+      {% if staff %}
+        <a class="nav-link {% if request.endpoint in ['dashboard', 'ticket_workspace'] %}active{% endif %}" href="{{ url_for('dashboard') }}">Dashboard</a>
+        <a class="nav-link {% if request.endpoint in ['knowledge_library', 'view_knowledge_article', 'edit_knowledge_article'] %}active{% endif %}" href="{{ url_for('knowledge_library') }}">Guides</a>
+        {% if staff.role == 'owner' %}<a class="nav-link {% if request.endpoint == 'team' %}active{% endif %}" href="{{ url_for('team') }}">Team</a>{% endif %}
+        <form class="logout-form" method="POST" action="{{ url_for('logout') }}"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><button class="logout-button" type="submit">Sign out</button></form>
+      {% else %}
+        <a class="nav-link {% if request.endpoint in ['login', 'initial_setup'] %}active{% endif %}" href="{{ url_for('login') }}">Staff sign in</a>
+      {% endif %}
+    </nav>
+  </header>
+  <main class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% for category, message in messages %}
+        <div class="flash flash-{{ category }}">
+          {% if category == 'invite' %}
+            Invite created for {{ message.split('|')[0] }}. Share this link: <a href="{{ message.split('|')[1] }}">{{ message.split('|')[1] }}</a> (expires in 7 days).
+          {% else %}{{ message }}{% endif %}
+        </div>
+      {% endfor %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>

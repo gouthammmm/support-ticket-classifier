@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Ticket received{% endblock %}
+{% block content %}
+  <div class="customer-receipt">
+    <span class="receipt-icon">✓</span>
+    <div class="eyebrow">REQUEST RECEIVED</div>
+    <h1>Thanks, your ticket is in the queue.</h1>
+    <p class="subtitle">A support teammate will review your request and follow up using the contact details you provided.</p>
+    {% if ticket_id %}<div class="receipt-reference"><span>Reference number</span><strong>#{{ ticket_id }}</strong></div>{% endif %}
+    {% if subject %}<div class="receipt-subject"><span>Subject</span><strong>{{ subject }}</strong></div>{% endif %}
+    <a class="button-link" href="{{ url_for('index') }}">Submit another request</a>
+  </div>
+{% endblock %}

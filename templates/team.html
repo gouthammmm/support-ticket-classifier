@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Manage support team{% endblock %}
+{% block content %}
+  <div class="dashboard-heading">
+    <div><div class="eyebrow">WORKSPACE SETTINGS</div><h1>Support team</h1><p class="subtitle">Invite staff who need access to the ticket queue.</p></div>
+  </div>
+  <div class="team-grid">
+    <section class="card">
+      <div class="eyebrow">INVITE STAFF</div><h2>Send an invitation</h2>
+      <p class="field-hint">The one-time invite link expires after seven days. Share it with the intended teammate.</p>
+      <form method="POST" action="{{ url_for('create_invite') }}" class="auth-form">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <label>Teammate email<input type="email" name="email" required maxlength="254" autocomplete="email"></label>
+        <button type="submit">Create invite link</button>
+      </form>
+    </section>
+    <section class="card">
+      <div class="eyebrow">ACCESS</div><h2>Team members</h2>
+      <ul class="team-list">
+        {% for member in members %}<li><span><strong>{{ member.email }}</strong><small>Joined {{ member.created_at }}</small></span><span class="role-pill">{{ member.role|title }}</span></li>{% endfor %}
+      </ul>
+      {% if invites %}
+        <h3 class="pending-heading">Pending invitations</h3>
+        <ul class="team-list">
+          {% for invite in invites %}<li><span><strong>{{ invite.email }}</strong><small>Expires {{ invite.expires_at }}</small></span><span class="role-pill">Pending</span></li>{% endfor %}
+        </ul>
+      {% endif %}
+    </section>
+  </div>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}{{ article.title }} · SupportDesk{% endblock %}
+{% block content %}
+  <div class="dashboard-heading">
+    <div><div class="eyebrow">TEAM KNOWLEDGE · VERIFIED GUIDE</div><h1>{{ article.title }}</h1><p class="subtitle">{{ article.category or 'Any category' }}{% if article.keywords %} · {{ article.keywords }}{% endif %}</p></div>
+    <a class="button-link button-secondary" href="{{ url_for('knowledge_library') }}">← All guides</a>
+  </div>
+  <article class="card guide-detail-card">
+    <div class="guide-detail-meta">Last reviewed {{ article.updated_at }} UTC{% if article.author_email %} · Maintained by {{ article.author_email }}{% endif %}</div>
+    <div class="guide-content">{{ article.content }}</div>
+    <div class="guide-detail-footer">
+      <span class="field-hint">Check that these steps apply before using them on a ticket.</span>
+      {% if staff.role == 'owner' %}<a class="button-link" href="{{ url_for('edit_knowledge_article', article_id=article.id) }}">Edit guide</a>{% endif %}
+    </div>
+  </article>
+{% endblock %}
