@@ -2,6 +2,10 @@
 
 SupportDesk is a shared support workspace for one organization. Customers submit requests through a public form; authenticated support staff review, assign, update, and export the queue. It can run on a team server with persistent storage, instead of requiring every teammate to run a copy on their own computer.
 
+## Screenshot
+
+![SupportDesk public ticket submission form](screenshots/supportdesk-intake.png)
+
 ## What it does
 
 - Classifies a request into one of five categories with a TF-IDF and Logistic Regression model.
